@@ -14,21 +14,29 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid DataContext="{StaticResource vm}">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF0D7BC1" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="53*"/>
             <ColumnDefinition Width="175*"/>
             <ColumnDefinition Width="72*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Visibility="{Binding LoginVis}" Margin="10" Grid.ColumnSpan="3">
-            <TextBlock Text="Email" Margin="5"/>
+            <TextBlock Text="MY NOTES APPLICATION" FontSize="20" HorizontalAlignment="Center" TextDecorations="Underline" FontFamily="cambria" Margin="5" Foreground="WhiteSmoke"/>
+
+            <TextBlock Text="Email" Margin="5" Foreground="WhiteSmoke"/>
             <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <TextBlock Text="Password" Margin="5"/>
+            <TextBlock Text="Password" Margin="5" Foreground="WhiteSmoke"/>
             <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
             <Button Content="Login" Margin="0,5" Width="50"
                     Command="{Binding LoginCommand}"
                     CommandParameter="{Binding User}"/>
             <TextBlock Text="Register" 
-                       Foreground="DodgerBlue" 
+                       Foreground="White" 
                        TextDecorations="Underline">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -51,7 +59,7 @@
             <Button Content="Register" Margin="0,5" Width="50"
                     Command="{Binding RegisterCommand}"
                     CommandParameter="{Binding User}"/>
-            
+
             <TextBlock Text="Login" 
                        Foreground="DodgerBlue" 
                        TextDecorations="Underline">

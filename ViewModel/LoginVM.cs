@@ -187,9 +187,9 @@ namespace MyNotes.ViewModel
             bool result=await FireBaseAuthHelper.Login(User);
             if(result)
             {
-                Authenticated?.Invoke(this, new EventArgs()); 
-                NotesWindow start = new NotesWindow();
-                start.ShowDialog();
+                NotesWindow starts = new NotesWindow();
+                Authenticated?.Invoke(this, new EventArgs());
+                starts.ShowDialog();
             }
         }
         public async void Register()
