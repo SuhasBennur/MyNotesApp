@@ -197,7 +197,10 @@ namespace MyNotes.ViewModel
            bool result=await FireBaseAuthHelper.Register(User);
             if (result)
             {
+                LoginWindow s=new LoginWindow();
                 Authenticated?.Invoke(this, new EventArgs());
+                MessageBox.Show("Registered Successfully.");
+                s.ShowDialog();
             }
         }
         private void OnPropertyChanged(string propertyname)

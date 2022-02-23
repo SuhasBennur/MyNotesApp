@@ -6,6 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:MyNotes.ViewModel"
         xmlns:local="clr-namespace:MyNotes.View"
+        xmlns:p="clr-namespace:MyNotes.View"
         mc:Ignorable="d"
         Title="LoginWindow" Height="400" Width="350" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -26,15 +27,21 @@
             <ColumnDefinition Width="72*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Visibility="{Binding LoginVis}" Margin="10" Grid.ColumnSpan="3">
-            <TextBlock Text="MY NOTES APPLICATION" FontSize="20" HorizontalAlignment="Center" TextDecorations="Underline" FontFamily="cambria" Margin="5" Foreground="WhiteSmoke"/>
-
-            <TextBlock Text="Email" Margin="5" Foreground="WhiteSmoke"/>
+            <TextBlock Text="MY NOTES APPLICATION" 
+                       FontSize="20" HorizontalAlignment="Center" Foreground="#FFFFFDFF"
+                       TextDecorations="Underline" FontFamily="cambria" Margin="5" />
+            <TextBlock Text="Email" Foreground="WhiteSmoke" Margin="5"/>
             <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <TextBlock Text="Password" Margin="5" Foreground="WhiteSmoke"/>
-            <TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <Button Content="Login" Margin="0,5" Width="50"
-                    Command="{Binding LoginCommand}"
-                    CommandParameter="{Binding User}"/>
+            <TextBlock Text="Password" Foreground="WhiteSmoke" Margin="5"/>
+            <!--<TextBox Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" />-->
+            <!--<PasswordBox x:Name="PWDBox"  Margin="5" PasswordChar="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+            <p:BindablePwdBox  Password="{Binding Password}"  Margin="5"/>
+            
+            <TextBlock Text="Forgot my password!" HorizontalAlignment="Right" Foreground="WhiteSmoke" Margin="5"/>
+            <Button x:Name="logbtn" Content="Login" Margin="0,5" Width="50" Foreground="Black"
+                    Command="{Binding LoginCommand}" 
+                    CommandParameter="{Binding User}">
+            </Button>
             <TextBlock Text="Register" 
                        Foreground="White" 
                        TextDecorations="Underline">
@@ -46,22 +53,25 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Visibility="{Binding RegisterVis}" Grid.ColumnSpan="3">
-            <TextBlock Text="First name" Margin="5"/>
+            <TextBlock Text="MY NOTES APPLICATION" 
+                       FontSize="20" HorizontalAlignment="Center" Foreground="#FFFFFDFF"
+                       TextDecorations="Underline" FontFamily="cambria" Margin="5" />
+            <TextBlock Text="First name" Foreground="WhiteSmoke" Margin="5"/>
             <TextBox Text="{Binding Firstname,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <TextBlock Text="Last name" Margin="5"/>
+            <TextBlock Text="Last name" Foreground="WhiteSmoke" Margin="5"/>
             <TextBox Text="{Binding Lastname,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <TextBlock Text="Email" Margin="5"/>
+            <TextBlock Text="Email" Foreground="WhiteSmoke" Margin="5"/>
             <TextBox Text="{Binding Username,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5" />
-            <TextBlock Text="Password" Margin="5"/>
-            <TextBox Text="{Binding Password,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <TextBlock Text="Confirm password" Margin="5"/>
-            <TextBox Text="{Binding ConfirmPassword,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>
-            <Button Content="Register" Margin="0,5" Width="50"
+            <TextBlock Text="Password" Foreground="WhiteSmoke" Margin="5"/>
+            <p:BindablePwdBox  Password="{Binding Password}"  Margin="5"/>
+            <TextBlock Text="Confirm password" Foreground="WhiteSmoke" Margin="5"/>
+            <p:BindablePwdBox Password="{Binding ConfirmPassword}" Margin="5"/>
+            <!--<TextBox Text="{Binding ConfirmPassword,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5"/>-->
+            <Button Content="Register" Margin="0,5" Width="70" Foreground="Black"
                     Command="{Binding RegisterCommand}"
                     CommandParameter="{Binding User}"/>
 
-            <TextBlock Text="Login" 
-                       Foreground="DodgerBlue" 
+            <TextBlock Text="Login" Foreground="White"
                        TextDecorations="Underline">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">

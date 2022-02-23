@@ -33,5 +33,6 @@ namespace MyNotes.View
         {
             Close();
         }
+
     }
 }
