@@ -30,6 +30,7 @@ namespace MyNotes.View
     public partial class NotesWindow : Window
     {
         NotesVM viewModel;
+        SpeechRecognitionEngine recognizer;
 
         //SpeechRecognitionEngine recognizer;
         public NotesWindow()
@@ -44,22 +45,25 @@ namespace MyNotes.View
             //                      select r).FirstOrDefault();
             //recognizer = new SpeechRecognitionEngine(currentCulture);
 
-            //RecognizerInfo ri = null;
-            //foreach (var i in SpeechRecognitionEngine.InstalledRecognizers())
-            //{
-            //    if (i.Culture.TwoLetterISOLanguageName.Equals("en"))
-            //    {
-            //        ri = i;
-            //    }
-            //}
 
-            //recognizer = new SpeechRecognitionEngine(ri);
-            //GrammarBuilder builder = new GrammarBuilder();
-            //builder.AppendDictation();
-            //Grammar grammar = new Grammar(builder);
-            //recognizer.LoadGrammar(grammar);
-            //recognizer.SetInputToDefaultAudioDevice();
-            //recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
+            RecognizerInfo ri = null;
+            foreach (var i in SpeechRecognitionEngine.InstalledRecognizers())
+            {
+                if (i.Culture.TwoLetterISOLanguageName.Equals("en"))
+                {
+                    ri = i;
+                }
+            }
+
+            recognizer = new SpeechRecognitionEngine(ri);
+
+            GrammarBuilder builder = new GrammarBuilder();
+            builder.AppendDictation();
+            Grammar grammaer = new Grammar(builder);
+
+            recognizer.LoadGrammar(grammaer);
+            recognizer.SetInputToDefaultAudioDevice();
+            recognizer.SpeechRecognized += Recognizer_SpeechRecognized;
             #endregion
 
             var fontFamilies = Fonts.SystemFontFamilies.OrderBy(f => f.Source);
@@ -96,6 +100,7 @@ namespace MyNotes.View
         private void Recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
         {
             string recognizedText = e.Result.Text;
+
             contentRichTextBox.Document.Blocks.Add(new Paragraph(new Run(recognizedText)));
         }
 
@@ -108,35 +113,15 @@ namespace MyNotes.View
         bool isRecogninzing = false;
         private async void SpeechButton_Click(object sender, RoutedEventArgs e)
         {
-            #region
-            //two way to do 
-            //first way
-
-            //string region = "";
-            //string key = "";
-
-            //var speechConfig = SpeechConfig.FromSubscription(region, key);
-            //using (var audioConfig = AudioConfig.FromDefaultMicrophoneInput())
-            //{
-            //    using (var recognizer = new SpeechRecognizer(speechConfig, audioConfig))
-            //    {
-            //        var result = await recognizer.RecognizeOnceAsync();
-            //        contentRichTextBox.Document.Blocks.Add(new Paragraph(new Run(result.Text)));
-            //    }
-            //}
-            //------------------------//
-            //second way
-            //if (!isRecogninzing)
-            //{
-            //    recognizer.RecognizeAsync(RecognizeMode.Multiple);
-            //    isRecogninzing = true;
-            //}
-            //else
-            //{
-            //    recognizer.RecognizeAsyncStop();
-            //    isRecogninzing = false;
-            //}
-            #endregion
+            bool isButtonEnabled = (sender as ToggleButton).IsChecked ?? false;
+            if (isButtonEnabled)
+            {
+                recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            }
+            else
+            {
+                recognizer.RecognizeAsyncStop();
+            }
         }
 
         private void contentRichTextBox_TextChanged(object sender, TextChangedEventArgs e)
